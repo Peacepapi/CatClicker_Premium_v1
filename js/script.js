@@ -29,14 +29,14 @@ var kittycats = [{
   click_count: 0
 }];
 
-var count = 0;
+// var count = 0;
 
 //Cat 1
-var counter_clicks = function() {
-  count += 1;
-  document.getElementById("counter").innerHTML = "This has been clicked " + count + " times.";
-
-};
+// var counter_clicks = function() {
+//   count += 1;
+//   document.getElementById("counter").innerHTML = "This has been clicked " + count + " times.";
+//
+// };
 //
 // // Attach as a listener
 // document.getElementById("cat1").addEventListener("click", addUp1, false);
@@ -81,39 +81,36 @@ var counter_clicks = function() {
 
 // Variable for clicked on cat within the cat menu
 var clicked_cat;
-
+var elem2 = document.getElementById("cat-pic");
+var catText = document.getElementById("catText");
+var catCount = document.getElementById("catCount");
 // Event Listner for cat menu
+
+catText.textContent = kittycats[0].name;
+catCount.textContent = kittycats[0].click_count;
+elem2.innerHTML = '<img id ="cat1" src="'+ kittycats[0].picture + '"></img>';
+
 for (var i = 0; i < kittycats.length; i++) {
 
     // This is the number we're on...
     var cat = kittycats[i];
-    console.log(cat) //see what objects are stored in cat variable
-
     // We're creating a DOM element for the cat object
     var elem = document.createElement('li');
     elem.textContent = cat.name;
-    var hr_elem = document.createElement('hr');
-
+    //Append the list elements to the 'cat_menu' div
+    document.getElementById("catListing").appendChild(elem);
 
     // ... and when we click, alert the value of the cat's name
     elem.addEventListener('click', (function(catCopy) {
         return function() {
-            alert(catCopy.name);
-
             clicked_cat = catCopy;
+            clicked_cat.click_count += 1;
+            catText.textContent = clicked_cat.name;
+            catCount.textContent = clicked_cat.click_count;
             console.log(clicked_cat);
+            elem2.innerHTML = '<img id ="cat1" src="'+ clicked_cat.picture + '"></img>';
         };
     })(cat));
-
-    //Append the list elements to the 'cat_menu' div
-    document.getElementById("cat_menu").appendChild(elem);
-    document.getElementById("cat_menu").appendChild(hr_elem);
-
 };
 
-console.log("The clicked on cat is");
-console.log(clicked_cat);
-
 //Add cat's picture to Cat-pic div     --------------TESTING------------------------   style="position = absolute; TOP:35px; LEFT:170px; WIDTH:50px; HEIGHT:50px"
-var elem2 = document.getElementById("cat-pic").innerHTML = '<img id ="cat1" src="'+ kittycats[1].picture + '"></img>';
-document.getElementById("cat-pic").appendChild(elem2);
